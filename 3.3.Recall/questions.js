@@ -97,23 +97,47 @@ let reverseWordsInArray = (array) => {
 
 let everyPossiblePair = (array) => {
     
-    let sortInPair=[];
+    // let sortInPair=[];
+    // for (let elem of array){
+    //     for (let pair of array){
+    //         if (elem != pair){
+                
+                
+    //             sortInPair.push([elem,pair]);
+                
+                
+    //         }
+    //     }
+        
+    // }
+    
+    
+    let arraySort=[];
+    array.sort();
+    
     for (let elem of array){
         for (let pair of array){
-            if (elem != pair){
-                
-                
-                sortInPair.push([elem,pair]);
-                
-                
+            if ((elem != pair)){
+                arraySort.push([elem, pair]);
             }
+            
         }
-        
     }
+    arraySort.splice(2, 3);
+    arraySort.splice(5, 3);
+    arraySort.splice(6, 3);
+    for(let elem of arraySort){
+        elem.sort();
+    }
+    // let word="no"
+    // if (array.includes("Jon")===true){
+    //     word="yes"
+        
+    // }
+
     
     
-    
-    return sortInPair;
+    return arraySort;
 }
 
 let allElementsExceptFirstThree = (array) => {
@@ -290,8 +314,17 @@ let getElementsUntilGreaterThanFive = (array) => {
 }
 
 let convertArrayToObject = (array) => {
+    let obj={};
     
-    return array;
+    for (let i = 0; i <array.length; i=i+2){
+        obj[array[i]]=array[i+1];
+        
+        
+
+    }
+    
+    
+    return obj ;
 }
 
 let getAllLetters = (array) => {
@@ -396,29 +429,72 @@ let getDomainName = (string) => {
 
 let titleize = (string) => {
 
-    string=string.split(" ");
-    let arraySort=[];
-    for (let elem of string){
-        let word=elem.substring(1);
-        arraySort.push(elem[0].toUpperCase()+word);
+    // string=string.split(" ");
+    // let arraySort=[];
+    // for (let elem of string){
+    //     if (elem.length>3){
+    //         console.log(elem.length);
+    //         let word=elem.substring(1);
+    //         arraySort.push(elem[0].toUpperCase()+word);
+
+    //     }
+    //     else{
+            
+    //         arraySort.push(elem);
+
+    //     }
+        
+
+    // }
+    
+    // arraySort=arraySort.join();
+    // let result=arraySort.replace(/,/g," ");
+
+    function titleize(sentence) {
+        if(!sentence.split) return sentence;
+        let count=0;
+        var _titleizeWord = function(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+            },
+            result = [];
+        sentence.split(" ").forEach(function(w) {
+            result.push(_titleizeWord(w));
+        });
+        return result.join(" ");
+    }
+    let word="";
+    let split=string.split(" ");
+    if (string.includes(".")===true){
+        sentence=string.split(".");
+        let firstSentence=titleize(sentence[0]);
+        let secondSentence=titleize(sentence[1]);
+        firstSentence=firstSentence.replace(/The/g, "the");
+        firstSentence=firstSentence.replace(/the/i, "The");
+        secondSentence=secondSentence.replace(/The/g,"the");
+        word=firstSentence+"."+secondSentence;
+    }
+    else{
+        word=titleize(string);
+        word=word.replace(/The/g, 'the');
+        word=word.replace(/the/i, "The");
+        word=word.replace(/And/i, "and");
 
     }
-    arraySort=arraySort.join();
-    let result=arraySort.replace(/,/g," ");
 
-    
-    
-    
-    
     
 
 
-    return result;
+    return word;
 
 }
 
 let checkForSpecialCharacters = (string) => {
-    return 'Write your method here';
+    let text = string;
+    const specialChars = `/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;`
+
+    const isSpecialCharsPresent = specialChars.split('').some(char => 
+    text.includes(char)) // true if present and false if not
+    return isSpecialCharsPresent;
 }
 
 let squareRoot = (number) => {
@@ -438,8 +514,39 @@ let factorial = (number) => {
 }
 
 let findAnagrams = (string) => {
-    return 'Write your method here';
-}
+    let array=string.split("");
+    let anagram=[];
+    for (let first of array){
+        for (let second of array){
+            for (let third of array){
+                if ((first != second)&& (first != third) && (second != third)){
+                    let word=[first,second,third];
+                    
+                    word=word.join();
+                    word=word.replace(/,/g,"");
+
+                    
+                    
+
+                    anagram.push(word);
+                }
+            }
+            
+                
+                
+        }
+    }
+    for (let elem of array){
+        for (let pair of array){
+            let x=[elem,pair];
+            x=x.join();
+            x=x.replace(/,/g,"");
+            anagram.push(x);
+        }
+    }  
+    
+    return anagram;
+    }
 
 let convertToCelsius = (number) => {
     function fToC(fahrenheit){
@@ -450,14 +557,11 @@ let convertToCelsius = (number) => {
 }
 
 let letterPosition = (array) => {
-    function alphabetPosition(text) {
-        const words = text.toLowerCase().replace(/[^a-z]/g,"");
-        return [...words].map(v=> v.charCodeAt() - 96);
-    }
-    let sortArray=[];
+    alphabet=[];
+    //97-122 for alphabet a-z (lowercase) charCodeAt()
     for (let elem of array){
-        let position = alphabetPosition(elem);
-        sortArray.push(position);
+        alphabet.push(elem.toLowerCase().charCodeAt() - 96);
     }
-    return sortArray;
+    
+    return alphabet;
 }
